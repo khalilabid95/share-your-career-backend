@@ -3,7 +3,9 @@ const cors = require('cors')
 const  mongoose  = require('mongoose');
 require('dotenv').config();
 const app = express()
+
 app.use(express.json());
+app.use(cors({ credentials: true, origin: [process.env.WEB_APP_URL] }))
 const usersRoute = require('./routes/users')
 const TECH =[
     {
@@ -19,10 +21,10 @@ app.get('/',(req,res)=>{
     res.json({message: "welecome"})
 })
 app.get('/technologies', (req,res) =>{
-    res.json({TECH})
+    res.json(TECH)
 })
 app.use('/auth',usersRoute)
-app.use(cors({ credentials: true, origin: [process.env.WEB_APP_URL] }))
+
 
 
 PORT =process.env.PORT || 5000
